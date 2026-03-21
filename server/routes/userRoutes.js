@@ -10,7 +10,10 @@ const {
     updateHODStatus,
     getPendingHODs, 
     searchUsers,
-    getUserProfile
+    getUserProfile,
+    createTeacherByAdmin,
+    toggleHOD,
+    deleteUser,
 } = require('../controllers/userController');
 const { protect, authorizeRoles } = require("../middleware/authMiddleware");
 
@@ -50,5 +53,8 @@ router.post("/request-hod", protect, authorizeRoles('teacher'), requestHOD)
 router.put("/approve-hod/:userId", protect, authorizeRoles('admin'), updateHODStatus);
 router.get("/search", protect, searchUsers);
 router.get("/:id", protect, getUserProfile);
+router.post("/admin/create-teacher", protect, createTeacherByAdmin);
+router.put("/admin/toggle-hod/:userId", protect, toggleHOD);
+router.delete("/admin/delete-user/:userId", protect, deleteUser);
 
 module.exports = router;

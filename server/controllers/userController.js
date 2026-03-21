@@ -6,6 +6,8 @@ const Enrollment = require("../models/Enrollment");
 const Progress = require("../models/Progress");
 const Lesson = require("../models/Lesson");
 const { request } = require("express");
+const Quiz = require("../models/Quiz");
+const QuizAttempt = require("../models/QuizAttempt");
 
 const registerUser = async (req, res) => {
     try {
@@ -367,7 +369,100 @@ const getUserProfile = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
+
+const createTeacherByAdmin = async (req, res) => {
+    try {
+        if(req.user.role !== "admin" || req.user.adminType !== "super") {
+            return res.status(403).json({ message: "Only super admin can create teachers" });
+        }
+
+        const { name, email, password } = req.body;
+        const existingUser = await User.findOne({ email });
+        if(existingUser) {
+            return res.status(400).json({ message: "User already exists" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const teacher = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+            role: "teacher",
+            status: "approved",
+        });
+
+        res.status(201).json({
+            message: "Teacher created successfully",
+            teacher,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const toggleHOD = async (req, res) => {
+    try {
+        if(req.user.role !== "admin" || req.user.adminType !== "super") {
+            return res.status(403).json({ message: "Only admin can manage HOD" });
+        }
+
+        const { userId } = req.params;
+        const user = await User.findById(userId);
+
+        if(!user || user.role !== "teacher") {
+            return res.status(404).json({ message: "Teacher not found with given ID" });
+        }
+
+        if(user.adminType === "hod") {
+            user.adminType = undefined;
+            user.hodStatus = null;
+        } else {
+            user.adminType = "hod";
+            user.hodStatus = "approved";
+        }
+        await user.save();
+
+        res.json({
+            message: "HOD status updated",
+            user,
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const deleteUser = async (req, res) => {
+    try {
+        if(req.user.role !== "admin" || req.user.adminType !== "super") {
+            return res.status(403).json({ message: "Only admin can delete users" });
+        }
+
+        const { userId } = req.params;
+        const user = await User.findById(userId);
+
+        if(!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        if(user._id.toString() === req.user.id) {
+            return res.status(400).json({ message: "You cannot delete yourself" });
+        }
+
+        await Course.deleteMany({ teacher: userId });
+        await Enrollment.deleteMany({ student: userId });
+        await Progress.deleteMany({ student: userId });
+        await Quiz.deleteMany({ createdBy: userId });
+        await QuizAttempt.deleteMany({ student: userId });
+
+        await user.deleteOne();
+
+        res.json({ message: "User deleted successfully" });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 module.exports = {
     registerUser,
@@ -380,4 +475,7 @@ module.exports = {
     getPendingHODs,
     searchUsers,
     getUserProfile,
+    createTeacherByAdmin,
+    toggleHOD,
+    deleteUser,
 };
