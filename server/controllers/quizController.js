@@ -2,6 +2,7 @@ const Quiz = require("../models/Quiz");
 const Course = require("../models/Course");
 const Enrollment = require("../models/Enrollment");
 const QuizAttempt = require("../models/QuizAttempt");
+const createNotification = require("../utils/createNotification");
 
 const createQuiz = async (req, res) => {
     try {
@@ -102,7 +103,7 @@ const submitQuizAttempt = async (req, res) => {
             }
         }
 
-        if(!answers || answerslength !== quiz.questions.length) {
+        if(!answers || answers.length !== quiz.questions.length) {
             return res.status(400).json({ message: "You must answer all the questions before submitting" });
         }
 
@@ -123,6 +124,12 @@ const submitQuizAttempt = async (req, res) => {
         });
 
         const percentage = Math.round((score / quiz.questions.length) * 100);
+
+        await createNotification({
+            userId: quiz.createdBy,
+            message: `${student.name} submitted your quiz "${quiz.title}"`,
+            type: "quiz_submitted",
+        })
 
         res.json({
             message: "Quiz submitted successfully",

@@ -5,9 +5,10 @@ const Course = require("../models/Course");
 const Enrollment = require("../models/Enrollment");
 const Progress = require("../models/Progress");
 const Lesson = require("../models/Lesson");
-const { request } = require("express");
+const { express } = require("express");
 const Quiz = require("../models/Quiz");
 const QuizAttempt = require("../models/QuizAttempt");
+const createNotification = require("../utils/createNotification");
 
 const registerUser = async (req, res) => {
     try {
@@ -171,6 +172,12 @@ const updateTeacherStatus = async (req, res) => {
         user.status = status;
         await user.save();
 
+        await createNotification({
+            userId: user._id,
+            message: `Your teacher account has been ${ status }`,
+            type: status === "approved" ? "teacher_approved" : "teacher_rejected",
+        })
+
         res.json({
             message: `Teacher ${status} successfully`,
         });
@@ -235,6 +242,12 @@ const updateHODStatus = async (req, res) => {
 
         user.hodStatus = status;
         await user.save();
+
+        await createNotification({
+            userId: user._id,
+            message: `Your HOD request has been ${status}`,
+            type: status === "approved" ? "hod_approved" : "hod_rejected",
+        })
 
         res.json({ message: `HOD ${status} successfully` });
     } catch (error) {
@@ -391,6 +404,12 @@ const createTeacherByAdmin = async (req, res) => {
             role: "teacher",
             status: "approved",
         });
+
+        await createNotification({
+            userId: teacher._id,
+            message: "Your teacher account has been created by admin",
+            type: "admin_action",
+        })
 
         res.status(201).json({
             message: "Teacher created successfully",

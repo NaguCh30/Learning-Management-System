@@ -7,6 +7,7 @@ const courseRoutes = require('./routes/courseRoutes');
 const lessonRoutes = require('./routes/lessonRoutes');
 const progressRoutes = require('./routes/progressRoutes');
 const quizRoutes = require('./routes/quizRoutes');
+const notificationRoutes = require("./routes/notificationRoutes");
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/lessons", lessonRoutes);
 app.use("/api/progress", progressRoutes);
 app.use("/api/quizzes", quizRoutes);
-
+app.use("/api/notifications", notificationRoutes);
 app.get("/", (req, res) => {
     res.send("API is running");
 });
