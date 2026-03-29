@@ -1,0 +1,46 @@
+.home-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-box {
+    border: 1px solid #ccc;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.loading-box h2 {
+    margin-bottom: 1rem;
+}
+
+.loading-box p {
+    margin: 0.5rem 0;
+}
+
+.timer {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+.continue-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.continue-btn {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
