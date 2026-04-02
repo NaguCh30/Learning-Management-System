@@ -63,7 +63,7 @@ function Auth() {
             
             console.log("Login Success:", data);
 
-            window.location.href = "/dashboard";
+            navigate("/dashboard");
         } catch (error) {
             console.log("Error:", error);
             toast.error("Something went wrong");
