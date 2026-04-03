@@ -1,6 +1,8 @@
 .topbar {
     height: 60px;
-    background: #eee;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,4 +12,33 @@
 .topbar-right span {
     margin-left: 15px;
     cursor: pointer;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topbar-left button {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.topbar-left button:hover {
+    transform: scale(1.1);
+}
+
+.topbar-left button:active {
+    transform: rotate(90deg);
+}
+
+.topbar-left h3 {
+    margin: 0;
 }

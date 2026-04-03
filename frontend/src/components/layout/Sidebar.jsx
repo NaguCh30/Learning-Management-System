@@ -1,12 +1,12 @@
 import "./Sidebar.css";
 
-function Sidebar() {
+function Sidebar({ isCollapsed }) {
     return (
-        <div className="sidebar">
+        <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
             <div className="sidebar-top">
                 <h2>LMS</h2>
                 <div className="sidebar-menu">
-                    <div>Dashboard</div>
+                    <div className="active">Dashboard</div>
                     <div>Browsw Courses</div>
                     <div>My Courses</div>
                     <div>Quizzes</div>
