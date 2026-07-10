@@ -1,7 +1,14 @@
+/**
+ * controllers/quizController.js
+ * MVC Controller managing exams. Coordinates exam publishing, answers submission, 
+ * live grading calculations, score histories, and department evaluations reporting.
+ */
+
 const Quiz = require("../models/Quiz");
 const Course = require("../models/Course");
 const Enrollment = require("../models/Enrollment");
 const QuizAttempt = require("../models/QuizAttempt");
+const User = require("../models/User");
 const createNotification = require("../utils/createNotification");
 
 const createQuiz = async (req, res) => {
@@ -58,13 +65,14 @@ const createQuiz = async (req, res) => {
 const getAvailableQuizzes = async (req, res) => {
     try {
         if(req.user.role !== "student") {
-            return res.status(403).json({ message: "Only students can access quizes" });
+            const quizzes = await Quiz.find({}).select("-questions.correctAnswer");
+            return res.json(quizzes);
         }
 
         const enrollments = await Enrollment.find({ student: req.user.id });
         const enrolledCourseIds = enrollments.map((e) => e.course);
 
-        const quizes = await Quiz.find({
+        const quizzes = await Quiz.find({
             $or: [
                 { course: { $in: enrolledCourseIds } },
                 { course: null },
@@ -125,6 +133,7 @@ const submitQuizAttempt = async (req, res) => {
 
         const percentage = Math.round((score / quiz.questions.length) * 100);
 
+        const student = await User.findById(req.user.id);
         await createNotification({
             userId: quiz.createdBy,
             message: `${student.name} submitted your quiz "${quiz.title}"`,
@@ -136,6 +145,7 @@ const submitQuizAttempt = async (req, res) => {
             score,
             totalQuestions: quiz.questions.length,
             percentage,
+            attemptId: attempt._id,
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -163,7 +173,7 @@ const getAttemptDetails = async (req, res) => {
 
             return {
                 questionText: q.questionText,
-                oprions: q.options,
+                options: q.options,
                 correctAnswer: q.correctAnswer,
                 studentAnswer,
                 isCorrect,
@@ -178,7 +188,7 @@ const getAttemptDetails = async (req, res) => {
         });
 
     } catch (error) {
-
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -258,7 +268,7 @@ const getAllTeacherAttempts = async (req, res) => {
 
         res.json(results);
     } catch (error) {
-
+        res.status(500).json({ message: error.message });
     }
 };
 

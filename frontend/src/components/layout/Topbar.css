@@ -1,44 +1,148 @@
 .topbar {
-    height: 60px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.topbar-right span {
-    margin-left: 15px;
-    cursor: pointer;
+  height: var(--header-height);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  transition: background-color 0.3s ease;
 }
 
 .topbar-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
 }
 
-.topbar-left button {
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #333;
-    display: flex;
-    align-items: center;
-    transition: transform 0.3s ease;
+.toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
 }
 
-.topbar-left button:hover {
-    transform: scale(1.1);
+.toggle-btn:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--accent);
 }
 
-.topbar-left button:active {
-    transform: rotate(90deg);
+.welcome-msg {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
 }
 
-.topbar-left h3 {
-    margin: 0;
+.user-name {
+  color: var(--text-primary);
+}
+
+.role-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-student {
+  background: rgba(6, 182, 212, 0.12);
+  color: var(--accent);
+}
+
+.badge-teacher {
+  background: rgba(168, 85, 247, 0.12);
+  color: #a855f7;
+}
+
+.badge-hod {
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--warning);
+}
+
+.badge-admin {
+  background: rgba(239, 68, 68, 0.12);
+  color: var(--danger);
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.action-icon-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: background-color 0.2s;
+}
+
+.action-icon-btn:hover {
+  background: var(--bg-tertiary);
+}
+
+.notification-bell-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: var(--danger);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border: 2px solid var(--bg-secondary);
+}
+
+.user-avatar-wrapper {
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px var(--accent-glow);
+  transition: transform 0.2s;
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
 }

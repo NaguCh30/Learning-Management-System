@@ -1,0 +1,155 @@
+.course-detail-page {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.detail-header {
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-title {
+  font-size: 1.8rem;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.header-meta {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.instructor-badge {
+  font-weight: 550;
+}
+
+.progress-card {
+  text-align: right;
+}
+
+.progress-tag {
+  font-size: 0.75rem;
+  background: var(--accent-glow);
+  color: var(--accent);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.percent-label {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.detail-layout {
+  grid-template-columns: 7fr 4fr;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .detail-layout {
+    grid-template-columns: 1fr;
+  }
+  .detail-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .progress-card {
+    text-align: left;
+    align-items: flex-start;
+  }
+}
+
+.detail-description {
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.outline-list {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.lesson-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid var(--border-light);
+  transition: all 0.2s ease;
+}
+
+.lesson-row:last-child {
+  border-bottom: none;
+}
+
+.lesson-row.clickable {
+  cursor: pointer;
+}
+
+.lesson-row.clickable:hover {
+  background: var(--border-light);
+}
+
+.lesson-row.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.lesson-number {
+  font-size: 0.75rem;
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 99px;
+  font-weight: 700;
+}
+
+.lesson-title {
+  font-weight: 550;
+  color: var(--text-primary);
+}
+
+.bullet-circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 99px;
+  border: 2px solid var(--text-muted);
+}
+
+.lock-icon {
+  font-size: 0.85rem;
+}
+
+.detail-thumbnail {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--border);
+}
+
+.quiz-row {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-light);
+}
+
+.quiz-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.quiz-q-count {
+  font-size: 0.8rem;
+}

@@ -13,7 +13,7 @@ const questionSchema = new mongoose.Schema({
         },
     ],
 
-    correctAnswers: {
+    correctAnswer: {
         type: String,
         required: true,
         validate: {

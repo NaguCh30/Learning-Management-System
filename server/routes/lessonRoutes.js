@@ -1,9 +1,16 @@
+/**
+ * routes/lessonRoutes.js
+ * Configures lesson publishing, lesson updates, deletions, 
+ * and sequence reordering for teachers.
+ */
+
 const express = require('express');
 const router = express.Router();
 
 const { createLesson, getLessonsByCourse, updateLesson, deleteLesson, reorderLessons } = require("../controllers/courseController");
 const { protect, authorizeRoles } = require("../middleware/authMiddleware");
 
+// Curriculum lesson editors and arrangement
 router.post("/", protect, authorizeRoles("teacher"), createLesson);
 router.get("/course/:courseId", protect, getLessonsByCourse);
 router.put("/:lessonId", protect, authorizeRoles('teacher'), updateLesson);

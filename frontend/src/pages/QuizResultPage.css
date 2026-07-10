@@ -1,0 +1,136 @@
+.quiz-result-page {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.result-header {
+  padding: 2.5rem 2rem;
+  max-width: 680px;
+  margin: 0 auto 1.5rem auto;
+}
+
+.score-verdict {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.score-verdict.pass {
+  color: #10b981;
+}
+
+.score-verdict.fail {
+  color: #ef4444;
+}
+
+.score-charts {
+  width: 100%;
+  max-width: 400px;
+}
+
+.metric-box {
+  flex: 1;
+  text-align: center;
+}
+
+.metric-val {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.metric-lbl {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.review-card {
+  padding: 1.5rem;
+  border-left: 4px solid var(--border);
+}
+
+.review-card.correct-border {
+  border-left-color: #10b981;
+}
+
+.review-card.incorrect-border {
+  border-left-color: #ef4444;
+}
+
+.badge-verdict {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.badge-verdict.correct {
+  background: rgba(16, 185, 129, 0.08);
+  color: #10b981;
+}
+
+.badge-verdict.incorrect {
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+}
+
+.question-index-tag.correct {
+  color: #10b981;
+}
+
+.question-index-tag.incorrect {
+  color: #ef4444;
+}
+
+.options-stack {
+  margin-top: 1rem;
+}
+
+.option-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  background: var(--bg-tertiary);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.option-row.correct-choice {
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.04);
+  color: #10b981;
+  font-weight: 550;
+}
+
+.option-row.incorrect-choice {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.04);
+  color: #ef4444;
+}
+
+.row-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+}
+
+.correct-label {
+  background: #10b981;
+  color: #fff;
+}
+
+.correct-choice-label {
+  background: var(--accent);
+  color: #fff;
+}
+
+.incorrect-choice-label {
+  background: #ef4444;
+  color: #fff;
+}

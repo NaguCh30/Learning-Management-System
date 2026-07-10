@@ -1,5 +1,12 @@
+/**
+ * middleware/authMiddleware.js
+ * Express middlewares for verifying JWT authorization headers
+ * and enforcing role-based endpoint permissions.
+ */
+
 const jwt = require('jsonwebtoken');
 
+// Verifies Bearer JWT signature, attaching decoded payload to req.user
 const protect = (req, res, next) => {
     let token;
 
@@ -19,6 +26,7 @@ const protect = (req, res, next) => {
     }
 };
 
+// Validates current user role membership and verifies teacher approval statuses
 const authorizeRoles = (...roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user.role)) {

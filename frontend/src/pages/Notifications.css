@@ -1,0 +1,50 @@
+.notifications-page {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.notifications-list {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.notification-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+  transition: all 0.2s ease;
+}
+
+.notification-row:last-child {
+  border-bottom: none;
+}
+
+.notification-row.unread {
+  background: rgba(6, 182, 212, 0.03);
+  font-weight: 550;
+  border-left: 3px solid var(--accent);
+}
+
+.notification-row.read {
+  opacity: 0.72;
+}
+
+.notif-text {
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.notif-date {
+  font-size: 0.75rem;
+}
+
+.empty-state h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}

@@ -1,3 +1,9 @@
+/**
+ * controllers/userController.js
+ * MVC Controller managing user operations. Handles profile retrieval, authentication
+ * token signing, teacher roster validations, and cascading admin collections deletions.
+ */
+
 const User = require("../models/User");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -65,7 +71,7 @@ const loginUser = async (req, res) => {
 
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch) {
-            res.status(400).json({ message: "Invalid password" });
+            return res.status(400).json({ message: "Invalid password" });
         }
 
         if(user.role === 'teacher' && user.status !== 'approved') {
@@ -467,15 +473,52 @@ const deleteUser = async (req, res) => {
             return res.status(400).json({ message: "You cannot delete yourself" });
         }
 
-        await Course.deleteMany({ teacher: userId });
+        // 1. If teacher, cascade delete everything related to their courses
+        if (user.role === "teacher") {
+            const courses = await Course.find({ teacher: userId });
+            const courseIds = courses.map(c => c._id);
+
+            // Delete all lessons of these courses
+            await Lesson.deleteMany({ course: { $in: courseIds } });
+
+            // Find all quizzes in those courses or created by this teacher
+            const quizzes = await Quiz.find({ 
+                $or: [
+                    { course: { $in: courseIds } },
+                    { createdBy: userId }
+                ]
+            });
+            const quizIds = quizzes.map(q => q._id);
+
+            // Delete all attempts on these quizzes
+            await QuizAttempt.deleteMany({ quiz: { $in: quizIds } });
+
+            // Delete the quizzes themselves
+            await Quiz.deleteMany({ _id: { $in: quizIds } });
+
+            // Delete all student enrollments of these courses
+            await Enrollment.deleteMany({ course: { $in: courseIds } });
+
+            // Delete all progress tracking of these courses
+            await Progress.deleteMany({ course: { $in: courseIds } });
+
+            // Delete the courses themselves
+            await Course.deleteMany({ teacher: userId });
+        }
+
+        // 2. Clear student-specific records
         await Enrollment.deleteMany({ student: userId });
         await Progress.deleteMany({ student: userId });
-        await Quiz.deleteMany({ createdBy: userId });
         await QuizAttempt.deleteMany({ student: userId });
 
+        // 3. Clear notifications related to this user
+        const Notification = require("../models/Notification");
+        await Notification.deleteMany({ user: userId });
+
+        // 4. Delete the user profile itself
         await user.deleteOne();
 
-        res.json({ message: "User deleted successfully" });
+        res.json({ message: "User and all associated data deleted successfully" });
 
     } catch (error) {
         res.status(500).json({ message: error.message });

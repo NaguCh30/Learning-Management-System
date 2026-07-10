@@ -1,0 +1,113 @@
+.lesson-player-page {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.player-breadcrumbs {
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 550;
+}
+
+.crumb.clickable {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.crumb.clickable:hover {
+  text-decoration: underline;
+}
+
+.lesson-player-title {
+  font-size: 1.6rem;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.player-grid {
+  grid-template-columns: 8fr 4fr;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .player-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.video-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.video-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.no-video-placeholder {
+  min-height: 240px;
+  background: var(--bg-tertiary);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.no-video-placeholder span {
+  font-size: 2rem;
+}
+
+.player-actions {
+  gap: 1rem;
+}
+
+.completed-accent {
+  background: var(--accent-glow) !important;
+  color: var(--accent) !important;
+  border: 1px solid var(--accent) !important;
+}
+
+.lesson-content-text {
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.outline-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  transition: all 0.2s ease;
+}
+
+.outline-row.active {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+}
+
+.outline-row.active .playlist-title {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.playlist-title {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}

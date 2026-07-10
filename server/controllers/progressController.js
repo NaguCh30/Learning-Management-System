@@ -1,3 +1,9 @@
+/**
+ * controllers/progressController.js
+ * MVC Controller managing student and teacher completion variables. Handles lesson completion
+ * checkmarks updates, course progress calculations, and analytics rosters for HOD and admin.
+ */
+
 const Progress = require("../models/Progress");
 const Enrollment = require("../models/Enrollment");
 const Lesson = require("../models/Lesson");
@@ -101,7 +107,12 @@ const getMyProgress = async (req, res) => {
     try {
         const courseId = req.params.courseId;
         if(req.user.role !== "student") {
-            return res.status(403).json({ message: "Only students can view progress" });
+            return res.json({
+                totalLessons: 0,
+                completedCount: 0,
+                progressPercentage: 0,
+                completedLessons: [],
+            });
         }
 
         const enrollment = await Enrollment.findOne({

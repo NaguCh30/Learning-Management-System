@@ -1,3 +1,9 @@
+/**
+ * controllers/courseController.js
+ * MVC Controller managing courses and lessons. Handles class publishing,
+ * roster enrollments, study material additions, and curriculum sorting updates.
+ */
+
 const Course = require('../models/Course');
 const Enrollment = require('../models/Enrollment');
 const Lesson = require('../models/Lesson');
@@ -36,7 +42,8 @@ const getMyCourses = async (req, res) => {
         const courses = await Course.find({ teacher: req.user.id });
         res.json(courses);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.st
+        atus(500).json({ message: error.message });
     }
 };
 
@@ -249,7 +256,7 @@ const createLesson = async (req, res) => {
             content,
             videoUrl,
             course: courseId,
-            finalOrder,
+            order: finalOrder,
         });
 
         res.status(201).json({

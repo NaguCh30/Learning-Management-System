@@ -1,0 +1,36 @@
+.manage-lessons-page {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.breadcrumbs {
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 550;
+  margin-bottom: 0.5rem;
+}
+
+.crumb.clickable {
+  cursor: pointer;
+}
+
+.crumb.clickable:hover {
+  text-decoration: underline;
+}
+
+.split-layout {
+  grid-template-columns: 6fr 6fr;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .split-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lessons-edit-list {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  overflow: hidden;
+}

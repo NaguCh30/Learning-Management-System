@@ -1,30 +1,26 @@
-import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import StudentDashboard from "../components/dashboard/StudentDashboard";
-import Sidebar from "../components/layout/Sidebar";
-import Topbar from "../components/layout/Topbar";
-import "../components/layout/DashboardLayout.css";
+import TeacherDashboard from "../components/dashboard/TeacherDashboard";
+import AdminDashboard from "../components/dashboard/AdminDashboard";
 
 function Dashboard() {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+  const { user } = useAuth();
 
-    const user = JSON.parse(localStorage.getItem("user"));
-
+  if (!user) {
     return (
-        <div className="dashboard-layout">
-            <Sidebar isCollapsed={isCollapsed}/>
-
-            <div className="dashboard-content">
-                <Topbar toggleSidebar={() => setIsCollapsed(prev => !prev)} isCollapsed={isCollapsed}/>
-
-                <div className="main-content">
-                    {user?.role === "student" && <StudentDashboard />}
-                    {user?.role === "teacher" && <p>Teacher Dashboard</p>}
-                    {user?.role === "admin" && <p>Admin Dashboard</p>}
-                </div>
-
-            </div>
-        </div>
+      <div className="flex h-64 items-center justify-center text-cyan-400">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent"></div>
+      </div>
     );
+  }
+
+  return (
+    <div className="dashboard-root-wrapper">
+      {user.role === "student" && <StudentDashboard />}
+      {user.role === "teacher" && <TeacherDashboard />}
+      {user.role === "admin" && <AdminDashboard />}
+    </div>
+  );
 }
 
 export default Dashboard;

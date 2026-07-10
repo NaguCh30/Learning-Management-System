@@ -1,0 +1,120 @@
+.quiz-take-page {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.quiz-page-header {
+  padding: 1.25rem 1.5rem;
+}
+
+.quiz-title {
+  font-size: 1.6rem;
+  font-weight: 750;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.timer-badge {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  min-width: 140px;
+}
+
+.timer-badge.warning {
+  border-color: #ef4444;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.04);
+}
+
+.timer-badge.warning .timer-value {
+  color: #ef4444;
+}
+
+.timer-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.timer-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.question-card {
+  padding: 1.5rem;
+}
+
+.question-index-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--bg-tertiary);
+  color: var(--accent);
+  border: 1px solid var(--border);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 28px;
+  border-radius: 6px;
+}
+
+.question-text {
+  font-size: 1.15rem;
+  font-weight: 650;
+  color: var(--text-primary);
+  margin: 0;
+  padding-top: 2px;
+}
+
+.options-grid {
+  grid-template-columns: 1fr;
+}
+
+.option-btn {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.option-btn:hover {
+  background: var(--border-light);
+  color: var(--text-primary);
+  border-color: var(--accent);
+}
+
+.option-btn.selected {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 650;
+}
+
+.indicator-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 99px;
+  border: 2px solid var(--text-muted);
+  position: relative;
+  transition: all 0.2s;
+}
+
+.option-btn.selected .indicator-circle {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.option-btn:hover .indicator-circle {
+  border-color: var(--accent);
+}

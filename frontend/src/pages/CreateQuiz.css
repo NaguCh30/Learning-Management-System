@@ -1,0 +1,33 @@
+.create-quiz-page {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.question-composer-card {
+  padding: 1.5rem;
+  border-left: 4px solid var(--accent);
+}
+
+.correct-toggle-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--bg-tertiary);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.correct-toggle-btn:hover {
+  border-color: #10b981;
+  color: #10b981;
+}
+
+.correct-toggle-btn.selected {
+  background: #10b981;
+  border-color: #10b981;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}

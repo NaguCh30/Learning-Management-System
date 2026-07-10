@@ -1,3 +1,9 @@
+/**
+ * routes/progressRoutes.js
+ * Routing for student lesson completion toggles, progress ratios,
+ * and teacher/admin roster completion metrics analytics.
+ */
+
 const express = require('express');
 const router = express.Router();
 
@@ -11,9 +17,12 @@ const { markLessonCompleted,
     getAdminTeachersAnalytics } = require("../controllers/progressController");
 const { protect } = require("../middleware/authMiddleware");
 
+// Student lesson checkpoint status updates
 router.post("/complete", protect, markLessonCompleted);
 router.post("/uncomplete", protect, unmarkLessonCompleted);
 router.get("/my/:courseId", protect, getMyProgress);
+
+// Teacher and admin visual statistics aggregates
 router.get("/course/:courseId", protect, getCourseProgress);
 router.get("/teacher/overview", protect, getTeacherOverview);
 router.get("/teacher/courses", protect, getTeacherCoursesProgress);
