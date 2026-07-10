@@ -25,7 +25,9 @@ function Home() {
     useEffect(() => {
         const interval = setInterval(async () => {
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/`);
+                const baseUrl = import.meta.env.VITE_API_URL || "";
+                const cleanUrl = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
+                const res = await fetch(`${cleanUrl}/`);
 
                 if(res.ok) {
                     setIsLoaded(true);
